@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { authenticate, getEventsByMonth, Event } from "./apiService"
+import {decode} from "html-entities"
 
 const EventList: React.FC = () => {
     const [events, setEvents] = useState<Event[]>([]);
@@ -29,6 +30,7 @@ const EventList: React.FC = () => {
         setSelectedMonth(parseInt(event.target.value));
     };
 
+
     return (
         <div>
             <h1>Event List</h1>
@@ -40,15 +42,37 @@ const EventList: React.FC = () => {
                 <option value={12}>December</option>
 
             </select>
-            <ul>
-                {events.map((event) => (
-                    <li key={event.id}>
-                        <h2>{event.title}</h2>
-                        <img src={event.images.mobile} alt={event.title} />
-                        <p dangerouslySetInnerHTML={{ __html: event.description }} />
-                    </li>
-                ))}
-            </ul>
+
+            {events.map((event) => (
+                <div key={event.id} className="event-card">
+                    <h2>{event.title}</h2>
+                    <div className="event-image-wrapper">
+                        <img
+                            className="event-image desktop-image"
+                            src={event.images.desktop}
+                            alt={event.title}
+                        />
+                        <img
+                            className="event-image tablet-landscape"
+                            src={event.images.tablet_land}
+                            alt={event.title}
+                        />
+                        <img
+                            className="event-image tablet-portrait"
+                            src={event.images.tablet_port}
+                            alt={event.title}
+                        />
+                        <img
+                            className="event-image mobile-image"
+                            src={event.images.mobile}
+                            alt={event.title}
+                        />
+                    </div>
+                    <div>
+                        <p dangerouslySetInnerHTML={{ __html: decode(event.description)}} />
+                    </div>
+                </div>
+            ))}
         </div>
     );
 };

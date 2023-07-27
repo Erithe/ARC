@@ -19,7 +19,7 @@ interface AuthResponse {
     token: string;
 }
 
-export const authenticate = async (): Promise<any> => {
+export const authenticate = async (): Promise<string> => {
     try {
         console.log("step 1")
         const response = await axios.post<AuthResponse>(`${API_BASE_URL}${AUTH_ENDPOINT}`,
@@ -30,7 +30,7 @@ export const authenticate = async (): Promise<any> => {
                 },
             }
         );
-        return response.data;
+        return response.data.toString();
 
     } catch (error) {
         console.error("Authentication failed:", error);
