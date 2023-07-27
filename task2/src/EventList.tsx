@@ -30,17 +30,19 @@ const EventList: React.FC = () => {
         setSelectedMonth(parseInt(event.target.value));
     };
 
-
     return (
         <div>
             <h1>Event List</h1>
-            <select value={selectedMonth} onChange={handleMonthChange}>
+            <select
+                className = "event-month"
+                value={selectedMonth}
+                onChange={handleMonthChange}
+            >
                 <option value={8}>August</option>
                 <option value={9}>September</option>
                 <option value={10}>October</option>
                 <option value={11}>November</option>
                 <option value={12}>December</option>
-
             </select>
 
             {events.map((event) => (
@@ -68,7 +70,7 @@ const EventList: React.FC = () => {
                             alt={event.title}
                         />
                     </div>
-                    <div>
+                    <div className="event-description">
                         <p dangerouslySetInnerHTML={{ __html: decode(event.description)}} />
                     </div>
                 </div>
