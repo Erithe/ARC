@@ -21,7 +21,6 @@ interface AuthResponse {
 
 export const authenticate = async (): Promise<string> => {
     try {
-        console.log("step 1")
         const response = await axios.post<AuthResponse>(`${API_BASE_URL}${AUTH_ENDPOINT}`,
             {},
             {
